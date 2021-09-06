@@ -17,7 +17,10 @@ fn main() {
     let can_enable_asm = x64_asm || aarch64_asm;
 
     if cfg!(feature = "asm") && (!can_enable_asm) {
-        panic!("Asm feature is not available for target {} on {}!", target_arch, target_family);
+        panic!(
+            "Asm feature is not available for target {} on {}!",
+            target_arch, target_family
+        );
     }
 
     if cfg!(any(feature = "asm", feature = "detect-asm")) && can_enable_asm {
@@ -72,8 +75,7 @@ fn main() {
                 .file("src/machine/asm/execute_x64.S")
                 .file("src/machine/aot/aot.x64.compiled.c");
         } else {
-            build
-                .file("src/machine/asm/execute_aarch64.S");
+            build.file("src/machine/asm/execute_aarch64.S");
             // TODO: AOT
         }
 
